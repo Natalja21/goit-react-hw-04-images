@@ -21,11 +21,12 @@ const App = () => {
   const [invisible, setInvisible] = useState(false);
 
   useEffect(() => {
-    if (query === "") {
+    if (query === '') {
       setInvisible(true);
       return;
     }
     const fetchImages = async () => {
+      setInvisible(true);
       setLoading(true);
       try {
         const { totalHits, hits } = await getDataImages(query, page);
@@ -38,17 +39,14 @@ const App = () => {
             }
           );
           setImages([]);
-          setInvisible(true);
-        }
-
-        if (totalHits > images.length + hits.length) {
-          setInvisible(false);
-        }
-        if (totalHits === images.length + hits.length) {
-          setInvisible(true);
         }
 
         setImages(prev => [...prev, ...hits]);
+
+        if (Math.ceil(totalHits / (page * 12)) > 1) {
+          setInvisible(false);
+          console.log(Math.ceil(totalHits / (page * 12)) > 1);
+        }
       } catch (error) {
         const errorMessage = toast.warning(
           'Oops, something went wrong try again later!',
@@ -62,7 +60,7 @@ const App = () => {
         setLoading(false);
       }
     };
-    fetchImages(page, query);
+    fetchImages();
   }, [query, page]);
 
   const toggleModal = (largeImageURL, tags) => {
@@ -74,7 +72,6 @@ const App = () => {
   const handleSubmitSearchBar = query => {
     setQuery(query);
     setPage(1);
-    setImages([]);
   };
 
   const onLoadingMore = () => {
@@ -105,6 +102,5 @@ const App = () => {
     </div>
   );
 };
-
 
 export default App;
