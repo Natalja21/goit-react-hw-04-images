@@ -21,7 +21,7 @@ const App = () => {
   const [invisible, setInvisible] = useState(false);
 
   useEffect(() => {
-    if (query === '') {
+    if (query === "") {
       setInvisible(true);
       return;
     }
