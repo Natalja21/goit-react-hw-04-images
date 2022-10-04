@@ -21,11 +21,12 @@ const App = () => {
   const [invisible, setInvisible] = useState(false);
 
   useEffect(() => {
-    if (query === '') {
+    if (query === "") {
       setInvisible(true);
       return;
     }
     const fetchImages = async () => {
+      
       setInvisible(true);
       setLoading(true);
       try {
@@ -39,9 +40,11 @@ const App = () => {
             }
           );
           setImages([]);
+          
         }
 
         setImages(prev => [...prev, ...hits]);
+        
 
         if (Math.ceil(totalHits / (page * 12)) > 1) {
           setInvisible(false);
@@ -72,6 +75,8 @@ const App = () => {
   const handleSubmitSearchBar = query => {
     setQuery(query);
     setPage(1);
+    setImages([]);
+  
   };
 
   const onLoadingMore = () => {

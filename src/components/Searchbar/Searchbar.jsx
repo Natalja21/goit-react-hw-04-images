@@ -16,8 +16,10 @@ const SearchBar = props => {
             )
             return;
         }
-       props.onSubmitSearchBar(query)
-        setQuery("");
+    props.onSubmitSearchBar(query)
+   
+    setQuery("");
+    
     };
 
   return (
