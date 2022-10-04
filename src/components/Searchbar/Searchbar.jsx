@@ -2,25 +2,25 @@ import { useState } from 'react';
 import styles from './Searchbar.module.css';
 import { toast } from 'react-toastify';
 
-
 const SearchBar = props => {
   const [query, setQuery] = useState('');
 
-    const  handelQueryChange = (e) => {
-        setQuery(e.currentTarget.value.toLowerCase());
-    };
-  const  handelSubmit = (e) => {
-        e.preventDefault();
-        if (query.trim() === "") {
-            toast.warning("Please, enter keyword !",{ theme: 'colored', closeOnClick: true,}
-            )
-            return;
-        }
-    props.onSubmitSearchBar(query)
-   
-    setQuery("");
-    
-    };
+  const handelQueryChange = e => {
+    setQuery(e.currentTarget.value.toLowerCase());
+  };
+  const handelSubmit = e => {
+    e.preventDefault();
+    if (query.trim() === '') {
+      toast.warning('Please, enter keyword !', {
+        theme: 'colored',
+        closeOnClick: true,
+      });
+      return;
+    }
+    props.onSubmitSearchBar(query);
+
+    setQuery('');
+  };
 
   return (
     <header className={styles.Searchbar}>

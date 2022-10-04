@@ -15,18 +15,17 @@ const App = () => {
   const [query, setQuery] = useState('');
   const [largeImageURL, setLargeImageURL] = useState('');
   const [tags, setTags] = useState('');
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [invisible, setInvisible] = useState(false);
 
   useEffect(() => {
-    if (query === "") {
+    if (query === '') {
       setInvisible(true);
       return;
     }
     const fetchImages = async () => {
-      
       setInvisible(true);
       setLoading(true);
       try {
@@ -40,15 +39,12 @@ const App = () => {
             }
           );
           setImages([]);
-          
         }
 
         setImages(prev => [...prev, ...hits]);
         
-
         if (Math.ceil(totalHits / (page * 12)) > 1) {
           setInvisible(false);
-          console.log(Math.ceil(totalHits / (page * 12)) > 1);
         }
       } catch (error) {
         const errorMessage = toast.warning(
@@ -72,11 +68,12 @@ const App = () => {
     setTags(tags);
   };
 
-  const handleSubmitSearchBar = query => {
-    setQuery(query);
-    setPage(1);
-    setImages([]);
-  
+  const handleSubmitSearchBar = newQuery => {
+    if (query !== newQuery) {
+      setQuery(prev => newQuery);
+      setImages([]);
+      setPage(1);
+    }
   };
 
   const onLoadingMore = () => {

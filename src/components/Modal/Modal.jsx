@@ -1,7 +1,10 @@
 import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import styles from './Modal.module.css';
+
+
 const modalRoot = document.querySelector('#modal-root');
+
 const Modal = props => {
   const modalClosed = e => {
     if (e.currentTarget === e.target) {
